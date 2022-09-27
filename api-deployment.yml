@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hygieia-api
+  labels:
+    app: hygieia-api
+spec:
+  replicas:
+  selector:
+    matchLabels:
+      app: hygieia-api
+  template:
+    metadata:
+      labels:
+        name: hygieia-api
+        app: hygieia-api
+    spec:
+      hostname: hygieia-api
+      containers:
+      - name: hygieia-api
+        image: 7078555411/hygieia-api
+        env:
+        - name: dbhost
+          value: mongodb-service
+        - name: dbname
+          value: dashboarddb
+        - name: dbusername
+          value: admin
+        - name: dbpassword
+          value: password
+        ports:
+           - containerPort: "8080"
+        resources:
+           limits:
+             cpu: 50m
+             memory: 50Mi
+           requests:
+              cpu: 495m
+              memory: 565Mi
